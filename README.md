@@ -68,6 +68,7 @@ A tela deve salvar as informações digitadas pelo usuário em um card, listando
 ### Pré-requisitos
 
 Antes de começar Certifique-se de ter: 
+* [Git](https://git-scm.com)
 * Um emulador instalado ou um dispositivo android conectado.
 
 
