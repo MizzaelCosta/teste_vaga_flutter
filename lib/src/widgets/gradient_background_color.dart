@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 
 import '../constants/color.dart' as color;
+import 'layout_with_footnote.dart';
 import 'privacy_policy.dart';
 
 class GradientBackgroundColor extends StatelessWidget {
@@ -32,15 +33,9 @@ class GradientBackgroundColor extends StatelessWidget {
                   ],
                 ),
               ),
-              child: Stack(
-                alignment: AlignmentDirectional.center,
-                children: [
-                  child,
-                  Positioned(
-                    bottom: 0,
-                    child: PrivacyPolicy(context),
-                  ),
-                ],
+              child: LayoutWithFootnote(
+                footnote: PrivacyPolicy(context),
+                child: child,
               ),
             ),
           ),
