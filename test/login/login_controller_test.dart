@@ -4,27 +4,31 @@ import 'package:teste_vaga_flutter/src/pages/login/login_controller.dart';
 main() {
   group('teste função login', () {
     final controller = LoginController();
+
     const userFail = 'adimn';
-    const user = 'admin';
     const passwordFail = '124';
+    const user = 'admin';
     const password = '123';
+    const error = 'Use Usuário: admin e Senha: 123.';
+
     test('login com usuário e senha corretos', () {
-      expect(null, controller.login(user: user, password: password));
+      final atual = controller.login(user: user, password: password);
+      expect(atual, null);
     });
 
     test('login com usuário e senha incorretos', () {
-      expect('Use Usuário: admin e Senha: 123.',
-          controller.login(user: userFail, password: passwordFail));
+      final atual = controller.login(user: userFail, password: passwordFail);
+      expect(atual, error);
     });
 
     test('login com usuário incorreto e senha correta', () {
-      expect('Use Usuário: admin e Senha: 123.',
-          controller.login(user: userFail, password: password));
+      final atual = controller.login(user: userFail, password: password);
+      expect(atual, error);
     });
 
     test('login com usuário correto e senha incorreta', () {
-      expect('Use Usuário: admin e Senha: 123.',
-          controller.login(user: user, password: passwordFail));
+      final atual = controller.login(user: user, password: passwordFail);
+      expect(atual, error);
     });
   });
 }
