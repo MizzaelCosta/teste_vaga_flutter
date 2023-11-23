@@ -38,7 +38,7 @@ Uma tela de autenticação onde o usuario é obrigadoa digitar seu login e senha
 - [x] Ambos os campos não podem ultrapassar 20 caracteres.
 - [x] Ambos os campos não podem terminar com o caractere de espaço no final.
 - [x] Se ambas as informações esƟveram preenchidas deve ir para a próxima tela.
-- [x] Ao tocar no label "PolíƟca de privacidade" uma página web direcionada para o google.com.br deve ser aberta.
+- [x] Ao tocar no label "Política de privacidade" uma página web direcionada para o [Google busca](https://google.com.br) deve ser aberta.
 
 ###### Observações:
 Não é necessário validar as informações em uma API Externa, mas caso seja feito um mockAPI contará como diferencial.
@@ -61,9 +61,9 @@ A tela deve salvar as informações digitadas pelo usuário em um card, listando
 - [x] O foco da digitação deve estar o tempo todo no campo de "Digite seu texto" e não pode ser perdido ao interagir com a tela.
 - [x] Ao acionar o "enter" o campo tem que verificar se a informação foi preenchida.
 - [x] O Card principal deve receber a informação digitada do campo.
-- [x] As informações precisam ser salvas e lidas utilizando a biblioteca shared_preference (https://pub.dev/packages/shared_preferences)
+- [x] As informações precisam ser salvas e lidas utilizando a biblioteca [shared_preference](https://pub.dev/packages/shared_preferences)
 - [x] O Icone de excluir deve abrir um pop-up confirmando a ação.
-- [x] Obrigatório a utilização do plugin MOBX para a construção da tela. 
+- [x] Obrigatório a utilização do plugin [MobX](https://pub.dev/packages/mobx) para a construção da tela. 
 
 ### Pré-requisitos
 
