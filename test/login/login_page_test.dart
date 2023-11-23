@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:teste_vaga_flutter/src/app.dart';
 import 'package:teste_vaga_flutter/src/constants/text.dart';
+import 'package:teste_vaga_flutter/src/pages/home/home_page.dart';
 import 'package:validatorless/validatorless.dart';
 
 void main() {
@@ -81,8 +82,8 @@ void main() {
           const App(),
         );
 
-        final passwordKey = find.byKey(const Key('password_key'));
-        expect(passwordKey, findsOneWidget);
+        final password = find.byKey(const Key('password_key'));
+        expect(password, findsOneWidget);
       },
     );
     testWidgets(
@@ -240,7 +241,7 @@ void main() {
         await widgetTester.tap(loginButton);
         await widgetTester.pumpAndSettle();
 
-        expect(find.byType(SnackBar), findsNothing);
+        expect(find.byType(HomePage), findsOneWidget);
       },
     );
   });
