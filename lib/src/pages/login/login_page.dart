@@ -1,13 +1,14 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
-import 'package:teste_vaga_flutter/src/pages/home/home_page.dart';
-import 'package:teste_vaga_flutter/src/widgets/show_message.dart';
 import 'package:validatorless/validatorless.dart';
 
+import '../../constants/text.dart';
 import '../../utils/text_formatter.dart';
 import '../../widgets/app_button.dart';
 import '../../widgets/gradient_background_color.dart';
 import '../../widgets/input_text.dart';
+import '../../widgets/show_message.dart';
+import '../home/home_page.dart';
 import 'login_controller.dart';
 
 class LoginPage extends StatefulWidget {
@@ -51,6 +52,7 @@ class _LoginPageState extends State<LoginPage> {
             child: Column(
               children: [
                 InputText(
+                  key: const Key('user_key'),
                   label: 'Usuário',
                   controller: userController,
                   //TODO: trocar icone
@@ -58,28 +60,29 @@ class _LoginPageState extends State<LoginPage> {
                   textInputAction: TextInputAction.next,
                   validator: Validatorless.multiple(
                     [
-                      Validatorless.required(' Digite seu Usuário*'),
-                      Validatorless.max(20, ' Máximo de 20 caracteres'),
+                      Validatorless.required(userEmptyMessage),
+                      Validatorless.max(20, maxCharMessage),
                     ],
                   ),
                 ),
                 const SizedBox(height: 12.0),
                 InputText(
+                  key: const Key('password_key'),
                   label: 'Senha',
                   controller: passwordController,
                   prefixIcon: const Icon(Icons.lock_rounded),
                   validator: Validatorless.multiple(
                     [
-                      Validatorless.required(' Digite sua senha*'),
-                      Validatorless.max(20, ' Máximo de 20 caracteres'),
-                      Validatorless.min(
-                          2, ' A senha deve ter pelo menos 2 dígitos'),
+                      Validatorless.required(passwordEmptyMessage),
+                      Validatorless.max(20, maxCharMessage),
+                      Validatorless.min(2, passwordMinCharMessage),
                     ],
                   ),
                   inputFormatters: const [TextFormatter()],
                 ),
                 const SizedBox(height: 36.0),
                 AppButton(
+                  key: const Key('login_button_key'),
                   label: 'Entrar',
                   onPressed: () {
                     if (formKey.currentState?.validate() ?? false) {
