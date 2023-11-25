@@ -99,7 +99,7 @@ class _LoginPageState extends State<LoginPage> {
                           ),
                         );
                       } else {
-                        ShowMessage(
+                        Message.showSnackBarAlert(
                           context: context,
                           message: error,
                         );

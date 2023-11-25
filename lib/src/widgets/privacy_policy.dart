@@ -1,9 +1,9 @@
 import 'package:flutter/material.dart';
-import 'package:teste_vaga_flutter/src/constants/style.dart';
 import 'package:url_launcher/url_launcher.dart';
 
-import '../constants/color.dart';
+import '../constants/style.dart';
 import '../constants/text.dart';
+import 'show_message.dart';
 
 class PrivacyPolicy extends StatelessWidget {
   const PrivacyPolicy(
@@ -13,30 +13,21 @@ class PrivacyPolicy extends StatelessWidget {
 
   final BuildContext context;
 
-  Future<void> _openBrowser() async {
-    final url = Uri.parse(urlPrivacyPolicy);
+  Future<void> _open() async {
     try {
       //TODO: injetar dependência (launchUrl).
-
+      final url = Uri.parse(privacyPolicyUrl);
       await launchUrl(url);
     } catch (e) {
+      _showError();
       debugPrint('$e');
-      _snackBarMessage();
     }
   }
 
-  void _snackBarMessage() {
-    if (ScaffoldMessenger.of(context).mounted) {
-      ScaffoldMessenger.of(context).hideCurrentSnackBar();
-    }
-    ScaffoldMessenger.of(context).showSnackBar(
-      const SnackBar(
-        content: Text(errorMessagePrivacyPolicy),
-        showCloseIcon: true,
-        closeIconColor: white,
-        elevation: 10.0,
-        behavior: SnackBarBehavior.floating,
-      ),
+  _showError() {
+    Message.showSnackBarError(
+      context: context,
+      message: privacyPolicyErrorMessage,
     );
   }
 
@@ -44,10 +35,10 @@ class PrivacyPolicy extends StatelessWidget {
   Widget build(BuildContext context) {
     return TextButton(
       onPressed: () {
-        _openBrowser();
+        _open();
       },
       child: const Text(
-        labelPrivacyPolicy,
+        privacyPolicyLabel,
         style: textStyleWhite,
       ),
     );
