@@ -41,6 +41,7 @@ class Message {
     return Message._internal(
       context: context,
       message: message,
+      color: grey,
     );
   }
 }
