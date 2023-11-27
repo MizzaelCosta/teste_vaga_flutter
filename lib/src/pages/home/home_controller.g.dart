@@ -23,19 +23,19 @@ mixin _$HomeController on HomeControllerBase, Store {
           Computed<bool>(() => super.reset, name: 'HomeControllerBase.reset'))
       .value;
 
-  late final _$listNotesAtom =
-      Atom(name: 'HomeControllerBase.listNotes', context: context);
+  late final _$noteListAtom =
+      Atom(name: 'HomeControllerBase.noteList', context: context);
 
   @override
-  ObservableList<String> get listNotes {
-    _$listNotesAtom.reportRead();
-    return super.listNotes;
+  ObservableList<String> get noteList {
+    _$noteListAtom.reportRead();
+    return super.noteList;
   }
 
   @override
-  set listNotes(ObservableList<String> value) {
-    _$listNotesAtom.reportWrite(value, super.listNotes, () {
-      super.listNotes = value;
+  set noteList(ObservableList<String> value) {
+    _$noteListAtom.reportWrite(value, super.noteList, () {
+      super.noteList = value;
     });
   }
 
@@ -140,7 +140,7 @@ mixin _$HomeController on HomeControllerBase, Store {
   @override
   String toString() {
     return '''
-listNotes: ${listNotes},
+noteList: ${noteList},
 textField: ${textField},
 reset: ${reset}
     ''';

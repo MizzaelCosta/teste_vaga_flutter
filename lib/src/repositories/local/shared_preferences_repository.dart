@@ -6,7 +6,7 @@ class LocalRepositoryWithSharedPreferences implements LocalRepository {
   LocalRepositoryWithSharedPreferences();
 
   late final SharedPreferences _storage;
-  final key = 'listNotes';
+  final key = 'noteList';
 
   Future<void> getInstance() async {
     _storage = await SharedPreferences.getInstance();

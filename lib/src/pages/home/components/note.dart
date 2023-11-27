@@ -6,8 +6,8 @@ import '../../../constants/color.dart';
 import '../../../constants/text.dart';
 import '../home_controller.dart';
 
-class NotesList extends StatelessWidget {
-  const NotesList(this.index, {super.key});
+class Note extends StatelessWidget {
+  const Note(this.index, {super.key});
 
   final int index;
 
@@ -23,7 +23,7 @@ class NotesList extends StatelessWidget {
         children: [
           Expanded(
               child: Text(
-            controller.listNotes[index],
+            controller.noteList[index],
             textAlign: TextAlign.center,
             style: textStyleBlack16Bold,
           )),

@@ -13,7 +13,7 @@ abstract class HomeControllerBase with Store {
   final LocalRepository _storage;
 
   @observable
-  ObservableList<String> listNotes = <String>[].asObservable();
+  ObservableList<String> noteList = <String>[].asObservable();
 
   @observable
   // ignore: prefer_final_fields
@@ -41,32 +41,32 @@ abstract class HomeControllerBase with Store {
   @action
   Future<void> getListNotes() async {
     final list = await _storage.get();
-    listNotes
+    noteList
       ..clear()
       ..addAll(list);
   }
 
   @action
   void _addNote(String value) {
-    listNotes.add(value);
-    _storage.add(listNotes);
+    noteList.add(value);
+    _storage.add(noteList);
     setTextField('');
   }
 
   @action
   void _updateNote(int index, String value) {
-    listNotes = listNotes
+    noteList = noteList
       ..removeAt(index)
       ..insert(index, value);
-    _storage.edit(listNotes);
+    _storage.edit(noteList);
     setTextField('');
     _setIndex(null);
   }
 
   @action
   void removeNote(int index) {
-    listNotes.removeAt(index);
-    _storage.delete(listNotes);
+    noteList.removeAt(index);
+    _storage.delete(noteList);
   }
 
   void onReset(String value) {
@@ -75,7 +75,7 @@ abstract class HomeControllerBase with Store {
   }
 
   void editNote(int index) {
-    setTextField(listNotes[index]);
+    setTextField(noteList[index]);
     _setIndex(index);
   }
 

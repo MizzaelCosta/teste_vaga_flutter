@@ -1,14 +1,12 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_mobx/flutter_mobx.dart';
 import 'package:provider/provider.dart';
 import 'package:validatorless/validatorless.dart';
 
-import '../../constants/color.dart';
 import '../../constants/style.dart';
 import '../../constants/text.dart';
 import '../../widgets/gradient_background_color.dart';
 import '../../widgets/input_text.dart';
-import 'components/notes_list.dart';
+import 'components/note_list.dart';
 import 'home_controller.dart';
 
 class HomePage extends StatefulWidget {
@@ -55,8 +53,6 @@ class _HomePageState extends State<HomePage> {
   @override
   Widget build(BuildContext context) {
     final padding = MediaQuery.of(context).size.width * 0.1;
-    const borderRadius = BorderRadius.all(Radius.circular(8.0));
-    final heigth = MediaQuery.of(context).size.height * 0.3;
 
     return Scaffold(
       body: GradientBackgroundColor(
@@ -64,24 +60,7 @@ class _HomePageState extends State<HomePage> {
           padding: EdgeInsets.all(padding),
           child: Column(
             children: [
-              Container(
-                height: heigth,
-                decoration: const BoxDecoration(
-                  color: white,
-                  borderRadius: borderRadius,
-                ),
-                child: Observer(
-                  builder: (_) {
-                    return ListView.builder(
-                      shrinkWrap: true,
-                      itemCount: controller.listNotes.length,
-                      itemBuilder: (_, index) {
-                        return NotesList(index);
-                      },
-                    );
-                  },
-                ),
-              ),
+              const NoteList(),
               const SizedBox(height: 36.0),
               Form(
                 key: _formKey,
