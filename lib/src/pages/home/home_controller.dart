@@ -11,16 +11,32 @@ abstract class HomeControllerBase with Store {
   HomeControllerBase(this._storage);
 
   final LocalRepository _storage;
-  int? index;
 
   @observable
   ObservableList<String> listNotes = <String>[].asObservable();
 
   @observable
-  TextEditingController? textField = TextEditingController();
+  // ignore: prefer_final_fields
+  TextEditingController _textField = TextEditingController();
+
+  @computed
+  TextEditingController get textField => _textField;
 
   @action
-  void setTextField(String value) => textField?.text = value;
+  void setTextField(String value) => _textField.text = value;
+
+  int? _index;
+
+  void _setIndex(int? value) => _index = value;
+
+  @observable
+  bool _reset = false;
+
+  @computed
+  bool get reset => _reset;
+
+  @action
+  void resetValidate(bool value) => _reset = value;
 
   @action
   Future<void> getListNotes() async {
@@ -38,13 +54,7 @@ abstract class HomeControllerBase with Store {
   }
 
   @action
-  void removeNote(int index) {
-    listNotes.removeAt(index);
-    _storage.delete(listNotes);
-  }
-
-  @action
-  void _editNote(int index, String value) {
+  void _updateNote(int index, String value) {
     listNotes = listNotes
       ..removeAt(index)
       ..insert(index, value);
@@ -53,20 +63,31 @@ abstract class HomeControllerBase with Store {
     _setIndex(null);
   }
 
-  onSubmitted(String value) {
-    if (index != null) {
-      _editNote(index!, value);
-      return;
-    }
-    _addNote(value);
+  @action
+  void removeNote(int index) {
+    listNotes.removeAt(index);
+    _storage.delete(listNotes);
   }
 
-  void _setIndex(int? value) {
-    index = value;
+  void onReset(String value) {
+    setTextField(value);
+    resetValidate(false);
   }
 
   void editNote(int index) {
     setTextField(listNotes[index]);
     _setIndex(index);
+  }
+
+  void saveSubmittedValue(String value) {
+    if (_index != null) {
+      _updateNote(_index!, value);
+      return;
+    }
+    _addNote(value);
+  }
+
+  void dispose() {
+    _textField.dispose();
   }
 }

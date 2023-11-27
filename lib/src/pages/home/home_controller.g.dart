@@ -9,6 +9,20 @@ part of 'home_controller.dart';
 // ignore_for_file: non_constant_identifier_names, unnecessary_brace_in_string_interps, unnecessary_lambdas, prefer_expression_function_bodies, lines_longer_than_80_chars, avoid_as, avoid_annotating_with_dynamic, no_leading_underscores_for_local_identifiers
 
 mixin _$HomeController on HomeControllerBase, Store {
+  Computed<TextEditingController>? _$textFieldComputed;
+
+  @override
+  TextEditingController get textField => (_$textFieldComputed ??=
+          Computed<TextEditingController>(() => super.textField,
+              name: 'HomeControllerBase.textField'))
+      .value;
+  Computed<bool>? _$resetComputed;
+
+  @override
+  bool get reset => (_$resetComputed ??=
+          Computed<bool>(() => super.reset, name: 'HomeControllerBase.reset'))
+      .value;
+
   late final _$listNotesAtom =
       Atom(name: 'HomeControllerBase.listNotes', context: context);
 
@@ -25,19 +39,35 @@ mixin _$HomeController on HomeControllerBase, Store {
     });
   }
 
-  late final _$textFieldAtom =
-      Atom(name: 'HomeControllerBase.textField', context: context);
+  late final _$_textFieldAtom =
+      Atom(name: 'HomeControllerBase._textField', context: context);
 
   @override
-  TextEditingController? get textField {
-    _$textFieldAtom.reportRead();
-    return super.textField;
+  TextEditingController get _textField {
+    _$_textFieldAtom.reportRead();
+    return super._textField;
   }
 
   @override
-  set textField(TextEditingController? value) {
-    _$textFieldAtom.reportWrite(value, super.textField, () {
-      super.textField = value;
+  set _textField(TextEditingController value) {
+    _$_textFieldAtom.reportWrite(value, super._textField, () {
+      super._textField = value;
+    });
+  }
+
+  late final _$_resetAtom =
+      Atom(name: 'HomeControllerBase._reset', context: context);
+
+  @override
+  bool get _reset {
+    _$_resetAtom.reportRead();
+    return super._reset;
+  }
+
+  @override
+  set _reset(bool value) {
+    _$_resetAtom.reportWrite(value, super._reset, () {
+      super._reset = value;
     });
   }
 
@@ -64,11 +94,33 @@ mixin _$HomeController on HomeControllerBase, Store {
   }
 
   @override
+  void resetValidate(bool value) {
+    final _$actionInfo = _$HomeControllerBaseActionController.startAction(
+        name: 'HomeControllerBase.resetValidate');
+    try {
+      return super.resetValidate(value);
+    } finally {
+      _$HomeControllerBaseActionController.endAction(_$actionInfo);
+    }
+  }
+
+  @override
   void _addNote(String value) {
     final _$actionInfo = _$HomeControllerBaseActionController.startAction(
         name: 'HomeControllerBase._addNote');
     try {
       return super._addNote(value);
+    } finally {
+      _$HomeControllerBaseActionController.endAction(_$actionInfo);
+    }
+  }
+
+  @override
+  void _updateNote(int index, String value) {
+    final _$actionInfo = _$HomeControllerBaseActionController.startAction(
+        name: 'HomeControllerBase._updateNote');
+    try {
+      return super._updateNote(index, value);
     } finally {
       _$HomeControllerBaseActionController.endAction(_$actionInfo);
     }
@@ -86,21 +138,11 @@ mixin _$HomeController on HomeControllerBase, Store {
   }
 
   @override
-  void _editNote(int index, String value) {
-    final _$actionInfo = _$HomeControllerBaseActionController.startAction(
-        name: 'HomeControllerBase._editNote');
-    try {
-      return super._editNote(index, value);
-    } finally {
-      _$HomeControllerBaseActionController.endAction(_$actionInfo);
-    }
-  }
-
-  @override
   String toString() {
     return '''
 listNotes: ${listNotes},
-textField: ${textField}
+textField: ${textField},
+reset: ${reset}
     ''';
   }
 }

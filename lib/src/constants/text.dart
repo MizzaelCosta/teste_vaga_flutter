@@ -5,7 +5,7 @@ const privacyPolicyErrorMessage = 'Ops! algo deu errado.';
 
 //homePage
 const hintText = 'Digite seu texto';
-const errorMessageValidator = 'Campo obrigatório *';
+const validatorErrorMessage = 'Campo obrigatório *';
 
 //alerDialog
 const alertDialogTitle = 'Deseja Apagar?';

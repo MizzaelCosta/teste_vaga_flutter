@@ -1,15 +1,15 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_mobx/flutter_mobx.dart';
 import 'package:provider/provider.dart';
-import 'package:teste_vaga_flutter/src/constants/style.dart';
-import 'package:teste_vaga_flutter/src/pages/home/home_controller.dart';
-import 'package:teste_vaga_flutter/src/widgets/gradient_background_color.dart';
-import 'package:teste_vaga_flutter/src/widgets/input_text.dart';
 import 'package:validatorless/validatorless.dart';
 
 import '../../constants/color.dart';
+import '../../constants/style.dart';
 import '../../constants/text.dart';
+import '../../widgets/gradient_background_color.dart';
+import '../../widgets/input_text.dart';
 import 'components/notes_list.dart';
+import 'home_controller.dart';
 
 class HomePage extends StatefulWidget {
   const HomePage({super.key});
@@ -19,42 +19,37 @@ class HomePage extends StatefulWidget {
 }
 
 class _HomePageState extends State<HomePage> {
-  final formKey = GlobalKey<FormState>();
-  final focusNode = FocusNode();
-  late TextEditingController textField;
+  final _formKey = GlobalKey<FormState>();
+  final _focusNode = FocusNode();
   late HomeController controller;
-  bool reset = false;
-
-  void _onChanged(String value) {
-    if (reset) {
-      formKey.currentState?.reset();
-      controller.setTextField(value);
-      resetValidate(false);
-    }
-  }
-
-  void resetValidate(bool value) => reset = value;
-
-  void _onFieldSubmitted(String value) {
-    if (formKey.currentState!.validate()) {
-      controller.onSubmitted(value);
-    }
-    resetValidate(true);
-    focusNode.requestFocus();
-  }
 
   @override
   void initState() {
     super.initState();
     controller = context.read<HomeController>()..getListNotes();
-    textField = controller.textField!;
   }
 
   @override
   void dispose() {
-    formKey.currentState?.dispose();
-    textField.dispose();
+    _formKey.currentState?.dispose();
+    _focusNode.dispose();
+    controller.dispose();
     super.dispose();
+  }
+
+  void _onChanged(String value) {
+    if (controller.reset) {
+      _formKey.currentState?.reset();
+      controller.onReset(value);
+    }
+  }
+
+  void _onFieldSubmitted(String value) {
+    if (_formKey.currentState!.validate()) {
+      controller.saveSubmittedValue(value);
+    }
+    controller.resetValidate(true);
+    _focusNode.requestFocus();
   }
 
   @override
@@ -89,13 +84,13 @@ class _HomePageState extends State<HomePage> {
               ),
               const SizedBox(height: 36.0),
               Form(
-                key: formKey,
+                key: _formKey,
                 child: InputText(
                   hintText: hintText,
                   hintStyle: textStyleBlack16Bold,
-                  controller: textField,
-                  validator: Validatorless.required(errorMessageValidator),
-                  focusNode: focusNode,
+                  controller: controller.textField,
+                  validator: Validatorless.required(validatorErrorMessage),
+                  focusNode: _focusNode,
                   onChanged: _onChanged,
                   onFieldSubmitted: _onFieldSubmitted,
                   textCapitalization: TextCapitalization.words,
