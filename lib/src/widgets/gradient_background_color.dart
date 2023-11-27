@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
+import 'package:teste_vaga_flutter/src/constants/text.dart';
 
-import '../constants/color.dart' as color;
+import '../constants/color.dart';
 import 'layout_with_footnote.dart';
 import 'privacy_policy.dart';
 
@@ -28,13 +29,16 @@ class GradientBackgroundColor extends StatelessWidget {
                   begin: Alignment.topCenter,
                   end: Alignment.bottomCenter,
                   colors: [
-                    color.gradientTop,
-                    color.gradientBotton,
+                    gradientTop,
+                    gradientBotton,
                   ],
                 ),
               ),
               child: LayoutWithFootnote(
-                footnote: PrivacyPolicy(context),
+                footnote: PrivacyPolicy(
+                  context,
+                  url: privacyPolicyUrl,
+                ),
                 child: child,
               ),
             ),

@@ -8,16 +8,17 @@ import 'show_message.dart';
 class PrivacyPolicy extends StatelessWidget {
   const PrivacyPolicy(
     this.context, {
+    required this.url,
     super.key,
   });
 
   final BuildContext context;
+  final String url;
 
-  Future<void> _open() async {
+  Future<void> _open(String url) async {
     try {
       //TODO: injetar dependência (launchUrl).
-      final url = Uri.parse(privacyPolicyUrl);
-      await launchUrl(url);
+      await launchUrl(Uri.parse(url));
     } catch (e) {
       _showError();
       debugPrint('$e');
@@ -35,7 +36,7 @@ class PrivacyPolicy extends StatelessWidget {
   Widget build(BuildContext context) {
     return TextButton(
       onPressed: () {
-        _open();
+        _open(url);
       },
       child: const Text(
         privacyPolicyLabel,
