@@ -31,6 +31,7 @@ class Note extends StatelessWidget {
             mainAxisAlignment: MainAxisAlignment.end,
             children: [
               IconButton(
+                key: Key('editButtom-key$index'),
                 iconSize: iconSize36,
                 icon: const Icon(Icons.border_color_rounded),
                 onPressed: () {
@@ -38,6 +39,7 @@ class Note extends StatelessWidget {
                 },
               ),
               IconButton(
+                key: Key('removeButtom-key$index'),
                 iconSize: iconSize36,
                 icon: const Icon(Icons.cancel, color: red),
                 onPressed: () {
